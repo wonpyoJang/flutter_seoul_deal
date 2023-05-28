@@ -21,3 +21,7 @@ bool hasSeven(int integer) {
 
   return hasSeven(integer ~/ 10);
 }
+
+bool checkSeven(int integer) {
+  return hasSeven(integer) || isMultipleOfSeven(integer);
+}
