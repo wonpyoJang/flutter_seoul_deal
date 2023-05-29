@@ -1,4 +1,5 @@
 import '../card/card.dart';
+import '../hands/hand.dart';
 
 enum Player { A, B }
 
@@ -67,6 +68,11 @@ class Dealer {
     final List<CardRank> ranks = cards.map((card) => card.rank).toList();
     ranks.sort((a, b) => b.rank.compareTo(a.rank));
 
+    if (ranks[0] == CardRank.ace && ranks[ranks.length - 1] == CardRank.two) {
+      final remoedCard = cards.removeAt(0);
+      cards.add(remoedCard);
+    }
+
     for (int i = 0; i < ranks.length - 1; i++) {
       if (ranks[i].rank - 1 != ranks[i + 1].rank) {
         return false;
@@ -76,7 +82,38 @@ class Dealer {
     return true;
   }
 
-  void getWinner() {
-    print('Player A wins!');
+  Hand judgeHands(List<Card> cards) {
+    final List<Hand> hands = [
+      StraightFlush(),
+      FourOfAKind(),
+      FullHouse(),
+      Flush(),
+      Straight(),
+      ThreeOfAKind(),
+      TwoPair(),
+      OnePair(),
+      HighCard(),
+    ];
+
+    for (final hand in hands) {
+      if (hand.validate(cards)) {
+        return hand;
+      }
+    }
+
+    throw Exception('No hand found');
+  }
+
+  Player getWinner(List<Card> playerACards, List<Card> playerBCards) {
+    final Hand playerAHand = judgeHands(playerACards);
+    final Hand playerBHand = judgeHands(playerBCards);
+
+    if (playerAHand.rank > playerBHand.rank) {
+      return Player.A;
+    } else if (playerAHand.rank < playerBHand.rank) {
+      return Player.B;
+    } else {
+      return playerAHand.isBeatTie(playerACards, playerBCards);
+    }
   }
 }
