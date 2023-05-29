@@ -24,7 +24,7 @@ class RoyalFlush extends Hand {
 
   @override
   bool validate(List<Card> cards) {
-    if (Dealer.isStraint(cards) == false) {
+    if (Dealer.isStraight(cards) == false) {
       return false;
     }
 
@@ -41,7 +41,7 @@ class StraightFlush extends Hand {
 
   @override
   bool validate(List<Card> cards) {
-    if (Dealer.isStraint(cards) == false) {
+    if (Dealer.isStraight(cards) == false) {
       return false;
     }
 
@@ -85,7 +85,7 @@ class Straight extends Hand {
 
   @override
   bool validate(List<Card> cards) {
-    return Dealer.isStraint(cards);
+    return Dealer.isStraight(cards);
   }
 }
 
@@ -131,7 +131,7 @@ class HighCard extends Hand {
   @override
   bool validate(List<Card> cards) {
     final countResult = Dealer.count(cards);
-    final isStraight = Dealer.isStraint(cards);
+    final isStraight = Dealer.isStraight(cards);
     return countResult.first.count == 1 && isStraight == false;
   }
 }

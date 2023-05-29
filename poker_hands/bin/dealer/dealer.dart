@@ -2,15 +2,15 @@ import '../card/card.dart';
 
 enum Player { A, B }
 
-class NumberOfAKind {
+class CountByRank {
   final int count;
   final CardRank rank;
 
-  NumberOfAKind({required this.count, required this.rank});
+  CountByRank({required this.count, required this.rank});
 
   @override
   bool operator ==(Object other) {
-    if (other is NumberOfAKind) {
+    if (other is CountByRank) {
       return count == other.count && rank == other.rank;
     }
     return false;
@@ -21,58 +21,62 @@ class NumberOfAKind {
 }
 
 class Dealer {
-  void getWinner() {
-    print('Player A wins!');
-  }
+  static List<CountByRank> count(List<Card> cards) {
+    final Map<CardRank, int> counter = {};
 
-  static List<NumberOfAKind> count(List<Card> cards) {
-    final Map<CardRank, int> rankCount = {};
-
-    for (var card in cards) {
-      rankCount[card.rank] = (rankCount[card.rank] ?? 0) + 1;
+    for (final card in cards) {
+      counter.update(card.rank, (value) => value + 1, ifAbsent: () => 1);
     }
 
-    final result = rankCount.entries
-        .map((rankAndCount) =>
-            NumberOfAKind(count: rankAndCount.value, rank: rankAndCount.key))
+    final List<CountByRank> countByRanks = counter.entries
+        .map((rankAndCount) => CountByRank(
+              count: rankAndCount.value,
+              rank: rankAndCount.key,
+            ))
         .toList();
 
-    result.sort((a, b) => b.count.compareTo(a.count));
+    countByRanks.sort((a, b) => b.count.compareTo(a.count));
 
-    return result;
-  }
-
-  static bool isStraint(List<Card> cards) {
-    final ranks = cards.map((card) => card.rank).toList();
-    ranks.sort((a, b) => a.rank.compareTo(b.rank));
-
-    for (var i = 0; i < ranks.length - 1; i++) {
-      if (ranks[i].rank + 1 != ranks[i + 1].rank) {
-        return false;
-      }
-    }
-
-    return true;
+    return countByRanks;
   }
 
   static bool isAceHighStraight(List<Card> cards) {
-    final ranks = cards.map((card) => card.rank).toList();
+    final List<CardRank> ranks = cards.map((card) => card.rank).toList();
     ranks.sort((a, b) => b.rank.compareTo(a.rank));
 
-    return ranks[0].rank == CardRank.ace.rank &&
-        ranks[1].rank == CardRank.king.rank &&
-        ranks[2].rank == CardRank.queen.rank &&
-        ranks[3].rank == CardRank.jack.rank &&
-        ranks[4].rank == CardRank.ten.rank;
+    return ranks[0] == CardRank.ace &&
+        ranks[1] == CardRank.king &&
+        ranks[2] == CardRank.queen &&
+        ranks[3] == CardRank.jack &&
+        ranks[4] == CardRank.ten;
   }
 
   static bool isAllSameShape(List<Card> cards) {
-    for (int i = 0; i < cards.length - 1; i++) {
-      if (cards[i].shape != cards[i + 1].shape) {
+    final List<CardShape> shapes = cards.map((card) => card.shape).toList();
+
+    for (int i = 0; i < shapes.length - 1; i++) {
+      if (shapes[i] != shapes[i + 1]) {
         return false;
       }
     }
 
     return true;
+  }
+
+  static bool isStraight(List<Card> cards) {
+    final List<CardRank> ranks = cards.map((card) => card.rank).toList();
+    ranks.sort((a, b) => b.rank.compareTo(a.rank));
+
+    for (int i = 0; i < ranks.length - 1; i++) {
+      if (ranks[i].rank - 1 != ranks[i + 1].rank) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  void getWinner() {
+    print('Player A wins!');
   }
 }
