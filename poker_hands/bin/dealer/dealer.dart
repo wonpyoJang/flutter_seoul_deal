@@ -82,7 +82,7 @@ class Dealer {
     return true;
   }
 
-  Hand judgeHands(List<Card> cards) {
+  static Hand judgeHands(List<Card> cards) {
     final List<Hand> hands = [
       StraightFlush(),
       FourOfAKind(),
@@ -104,7 +104,7 @@ class Dealer {
     throw Exception('No hand found');
   }
 
-  Player getWinner(List<Card> playerACards, List<Card> playerBCards) {
+  static Player getWinner(List<Card> playerACards, List<Card> playerBCards) {
     final Hand playerAHand = judgeHands(playerACards);
     final Hand playerBHand = judgeHands(playerBCards);
 
@@ -113,7 +113,7 @@ class Dealer {
     } else if (playerAHand.rank < playerBHand.rank) {
       return Player.B;
     } else {
-      return playerAHand.isBeatTie(playerACards, playerBCards);
+      return playerAHand.beatTie(playerACards, playerBCards);
     }
   }
 }

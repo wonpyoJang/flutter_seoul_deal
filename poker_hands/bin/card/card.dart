@@ -7,6 +7,21 @@ enum CardShape {
   const CardShape({required this.symbol});
 
   final String symbol;
+
+  factory CardShape.fromSymbol(String symbol) {
+    switch (symbol) {
+      case 'D':
+        return CardShape.diamond;
+      case 'H':
+        return CardShape.heart;
+      case 'S':
+        return CardShape.spade;
+      case 'C':
+        return CardShape.clover;
+      default:
+        throw ArgumentError('Invalid symbol: $symbol');
+    }
+  }
 }
 
 enum CardRank {
@@ -25,6 +40,39 @@ enum CardRank {
   ace(rank: 14, symbol: 'A');
 
   const CardRank({required this.rank, required this.symbol});
+
+  factory CardRank.fromSymbol(String symbol) {
+    switch (symbol) {
+      case '2':
+        return CardRank.two;
+      case '3':
+        return CardRank.three;
+      case '4':
+        return CardRank.four;
+      case '5':
+        return CardRank.five;
+      case '6':
+        return CardRank.six;
+      case '7':
+        return CardRank.seven;
+      case '8':
+        return CardRank.eight;
+      case '9':
+        return CardRank.nine;
+      case 'T':
+        return CardRank.ten;
+      case 'J':
+        return CardRank.jack;
+      case 'Q':
+        return CardRank.queen;
+      case 'K':
+        return CardRank.king;
+      case 'A':
+        return CardRank.ace;
+      default:
+        throw ArgumentError('Invalid symbol: $symbol');
+    }
+  }
 
   final int rank;
   final String symbol;

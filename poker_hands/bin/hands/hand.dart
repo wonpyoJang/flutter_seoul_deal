@@ -8,7 +8,7 @@ abstract class Hand {
 
   bool validate(List<Card> cards);
 
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards);
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards);
 }
 
 /// * 와일드카드가 존재하지 않으므로 FiveOfAKind는 존재하지 않는다.
@@ -21,7 +21,7 @@ class FiveOfAKind extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     throw "와일드카드가 존재하지 않음";
   }
 }
@@ -43,7 +43,7 @@ class RoyalFlush extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     throw "모양 간에는 rank가 존재하지 않고, 문제에 조건에 따르면 같은 우선순위가 같은 패는 입력에 존재하지 않음";
   }
 }
@@ -61,7 +61,7 @@ class StraightFlush extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     playerACards.sort((a, b) => b.rank.rank.compareTo(a.rank.rank));
     playerBCards.sort((a, b) => b.rank.rank.compareTo(a.rank.rank));
 
@@ -80,7 +80,7 @@ class FourOfAKind extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     final playerACount = Dealer.count(playerACards);
     final playerBCount = Dealer.count(playerBCards);
 
@@ -109,7 +109,7 @@ class FullHouse extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     final playerACount = Dealer.count(playerACards);
     final playerBCount = Dealer.count(playerBCards);
 
@@ -134,7 +134,7 @@ class Flush extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     playerACards.sort((a, b) => b.rank.rank.compareTo(a.rank.rank));
     playerBCards.sort((a, b) => b.rank.rank.compareTo(a.rank.rank));
 
@@ -158,7 +158,7 @@ class Straight extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     playerACards.sort((a, b) => b.rank.rank.compareTo(a.rank.rank));
     playerBCards.sort((a, b) => b.rank.rank.compareTo(a.rank.rank));
 
@@ -180,7 +180,7 @@ class ThreeOfAKind extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     final playerACount = Dealer.count(playerACards);
     final playerBCount = Dealer.count(playerBCards);
 
@@ -219,7 +219,7 @@ class TwoPair extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     final playerACount = Dealer.count(playerACards);
     final playerBCount = Dealer.count(playerBCards);
 
@@ -261,7 +261,7 @@ class OnePair extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     final playerACount = Dealer.count(playerACards);
     final playerBCount = Dealer.count(playerBCards);
 
@@ -300,7 +300,7 @@ class HighCard extends Hand {
   }
 
   @override
-  Player isBeatTie(List<Card> playerACards, List<Card> playerBCards) {
+  Player beatTie(List<Card> playerACards, List<Card> playerBCards) {
     playerACards.sort((a, b) => b.rank.rank.compareTo(a.rank.rank));
     playerBCards.sort((a, b) => b.rank.rank.compareTo(a.rank.rank));
 
