@@ -268,7 +268,7 @@ class OnePair extends Hand {
     if (playerACount.first.rank.rank == playerBCount.first.rank.rank) {
       playerACards.removeWhere(
           (card) => card.rank.rank == playerACount.first.rank.rank);
-      playerBCount.removeWhere(
+      playerBCards.removeWhere(
           (card) => card.rank.rank == playerBCount.first.rank.rank);
       playerACards.sort((a, b) => b.rank.rank.compareTo(a.rank.rank));
       playerBCards.sort((a, b) => b.rank.rank.compareTo(a.rank.rank));
