@@ -14,6 +14,16 @@
                 "arg2",
                 "arg3"
             ]
-        }
+        },
+        {
+            "name": "poker_hands",
+            "cwd": "poker_hands",
+            "type": "dart",
+            "program": "bin/poker_hands.dart",
+            "request": "launch",
+            "args": [
+                "bin/sample_poker.txt"
+            ]
+        },
     ]
 }
