@@ -28,9 +28,6 @@ void main(List<String> arguments) {
 
       if (winner == Player.A) {
         numberOfPlayerAWins++;
-        print("playerA wins");
-      } else {
-        print("playerB wins");
       }
     }
 
